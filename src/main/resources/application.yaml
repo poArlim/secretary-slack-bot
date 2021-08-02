@@ -1,5 +1,0 @@
-slack :
-  uri :
-    postMessage : https://slack.com/api/chat.postMessage
-  client :
-    token : xoxb-2340548238756-2334360616866-I542lC894E9wHneckdEEe7fk
