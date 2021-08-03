@@ -13,14 +13,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class SlackClient {
 
-    @Value("${slack.uri.postMessage}")
-    private String slackPostMessageUri;
+    @Value("${slack.url.postMessage}")
+    private String slackPostMessageUrl;
 
     @Value("${slack.client.token}")
     private String slackClientToken;
 
     public String postMessage(PostMessageReq postMessageReq){
-        var uri = UriComponentsBuilder.fromUriString(slackPostMessageUri)
+        var uri = UriComponentsBuilder.fromUriString(slackPostMessageUrl)
                 .build()
                 .encode()
                 .toUri();
