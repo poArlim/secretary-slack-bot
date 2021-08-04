@@ -19,6 +19,9 @@ public class SlackClient {
     @Value("${slack.client.token}")
     private String slackClientToken;
 
+    @Value("${slack.client.channel}")
+    private String slackClientChannel;
+
     public String postMessage(PostMessageReq postMessageReq){
         var uri = UriComponentsBuilder.fromUriString(slackPostMessageUrl)
                 .build()
@@ -28,8 +31,7 @@ public class SlackClient {
         var headers = new HttpHeaders();
         headers.set("Authorization", "Bearer "+slackClientToken);
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-        postMessageReq.setChannel("secretary-bot");
+        postMessageReq.setChannel(slackClientChannel);
 
         var httpEntity = new HttpEntity<>(postMessageReq, headers);
 
