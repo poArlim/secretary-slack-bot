@@ -23,7 +23,7 @@ public class ApiController {
     }
 
     @GetMapping("/alarm")
-    public String alarm() throws UnsupportedEncodingException {
+    public String alarm() {
         var res = weatherService.alarmEveryMorning();
         return res.toString();
     }

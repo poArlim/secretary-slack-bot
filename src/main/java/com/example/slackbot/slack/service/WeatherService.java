@@ -17,7 +17,7 @@ public class WeatherService {
 
     private final WeatherClient weatherClient;
 
-    public String alarmEveryMorning() throws UnsupportedEncodingException {
+    public String alarmEveryMorning() {
         Date currentTime = new Date();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");

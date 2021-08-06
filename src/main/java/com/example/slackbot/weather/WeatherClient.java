@@ -32,14 +32,15 @@ public class WeatherClient {
     @Value("${weather.key.decoding}")
     private String weatherDecodingKey;
 
-    public String searchWeather(SearchShortTermWeatherReq searchShortTermWeatherReq) throws UnsupportedEncodingException {
+    public String searchWeather(SearchShortTermWeatherReq searchShortTermWeatherReq) {
         searchShortTermWeatherReq.setServiceKey(weatherEncodingKey);
 
         var uri = UriComponentsBuilder.fromUriString(weatherShortTermSearchUrl)
                 .queryParams(searchShortTermWeatherReq.toMultiValueMap())
-                .encode()
-                .build()
+                .build(true)
                 .toUri();
+
+        System.out.println(uri);
 
         var headers = new HttpHeaders();
         var httpEntity = new HttpEntity<>(headers);
