@@ -3,9 +3,8 @@ package com.example.slackbot.controller;
 import com.example.slackbot.slack.service.PostMessageService;
 import com.example.slackbot.slack.service.WeatherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequestMapping("/api/slack-bot")
@@ -23,8 +22,8 @@ public class ApiController {
     }
 
     @GetMapping("/alarm")
+    @Scheduled(cron = "0 30 4 * * *")
     public String alarm() {
-        var res = weatherService.alarmEveryMorning();
-        return res.toString();
+        return postMessageService.send(weatherService.alarmEveryMorning());
     }
 }
