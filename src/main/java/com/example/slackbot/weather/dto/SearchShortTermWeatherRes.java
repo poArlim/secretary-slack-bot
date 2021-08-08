@@ -11,8 +11,15 @@ import java.util.List;
 @Data
 public class SearchShortTermWeatherRes {
 
-    private Header header;
-    private Body body;
+    private Response response;
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class Response {
+        private Header header;
+        private Body body;
+    }
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -27,10 +34,17 @@ public class SearchShortTermWeatherRes {
     @Data
     public static class Body {
         private String dataType;
-        private List<SearchShortTermWeatherItem> items;
+        private Items items;
         private int pageNo;
         private int numOfRows;
         private int totalCount;
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    public static class Items {
+        private List<SearchShortTermWeatherItem> item;
     }
 
     @NoArgsConstructor
@@ -42,7 +56,7 @@ public class SearchShortTermWeatherRes {
         private String category;
         private String fcstDate;
         private String fcstTime;
-        private float fcstValue;
+        private String fcstValue;
         private int nx;
         private int ny;
     }

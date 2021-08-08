@@ -17,7 +17,7 @@ public class WeatherService {
 
     private final WeatherClient weatherClient;
 
-    public String alarmEveryMorning() {
+    public SearchShortTermWeatherRes alarmEveryMorning() {
         Date currentTime = new Date();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
