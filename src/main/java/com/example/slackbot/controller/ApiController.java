@@ -22,7 +22,7 @@ public class ApiController {
     }
 
     @GetMapping("/alarm")
-    @Scheduled(cron = "0 30 4 * * *")
+    @Scheduled(cron = "0 0 6 * * *")
     public String alarm() {
         return postMessageService.send(weatherService.alarmEveryMorning());
     }

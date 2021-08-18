@@ -63,8 +63,9 @@ public class WeatherService {
     }
 
     public String skyCodeToString(int skyCode){
-        if(skyCode < 5) return "맑음";
-        else if(skyCode < 8) return "구름많음";
-        else return "흐림";
+        if(skyCode == 1) return "맑음";
+        else if(skyCode == 3) return "구름많음";
+        else if(skyCode == 4) return "흐림";
+        else return "skyCode 오류";
     }
 }
