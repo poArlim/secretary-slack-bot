@@ -26,16 +26,19 @@ public class WeatherService {
         String time = timeFormat.format(currentTime);
 
         SearchShortTermWeatherReq searchShortTermWeatherReq = new SearchShortTermWeatherReq();
-        searchShortTermWeatherReq.setNumOfRows(211);    // 시간당 11개 * 19시간 + 일 최고, 최저기온 하나씩
+        searchShortTermWeatherReq.setNumOfRows(178);    // 시간당 11개 * 16시간 + 일 최고, 최저기온 하나씩
         searchShortTermWeatherReq.setPageNo(1);         // 오늘 데이터
         searchShortTermWeatherReq.setBase_date(date);
-        searchShortTermWeatherReq.setBase_time("0200"); // 2시에 발표. 3시 날씨부터 받아옴. 3~21시 -> 19시간.
+        searchShortTermWeatherReq.setBase_time("0500"); // 5시에 발표. 6시 날씨부터 받아옴. 6~21시 -> 16시간.
 
         var searchWeatherRes = weatherClient.searchWeather(searchShortTermWeatherReq);
         var weatherItems =  searchWeatherRes.getResponse().getBody().getItems().getItem();
 
         StringBuilder fcst = new StringBuilder();
 
+        SimpleDateFormat datePrintFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+        fcst.append(datePrintFormat.format(currentTime) + " 05:00 am 기준, 오늘의 날씨입니다.\n");
         fcst.append("오전 " + getTimeWeather(weatherItems, "0600"));
         fcst.append("오전 " + getTimeWeather(weatherItems, "0900"));
         fcst.append("오후 " + getTimeWeather(weatherItems, "1200"));
