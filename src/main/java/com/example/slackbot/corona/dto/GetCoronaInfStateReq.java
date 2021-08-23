@@ -11,8 +11,8 @@ import org.springframework.util.MultiValueMap;
 @Data
 public class GetCoronaInfStateReq {
     private String serviceKey;
-    private int numOfRows;
-    private int pageNo;
+    private int numOfRows = 2;
+    private int pageNo = 1;
     private String startCreateDt;
     private String endCreateDt;
 

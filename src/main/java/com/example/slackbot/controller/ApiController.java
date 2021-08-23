@@ -1,5 +1,7 @@
 package com.example.slackbot.controller;
 
+import com.example.slackbot.corona.CoronaClient;
+import com.example.slackbot.slack.service.CoronaStateService;
 import com.example.slackbot.slack.service.PostMessageService;
 import com.example.slackbot.slack.service.WeatherService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ public class ApiController {
 
     private final PostMessageService postMessageService;
     private final WeatherService weatherService;
+    private final CoronaStateService coronaStateService;
 
     @PostMapping("/send/{message}")
     public String send(@PathVariable String message){
@@ -21,9 +24,15 @@ public class ApiController {
         return res;
     }
 
-    @GetMapping("/alarm")
+    @GetMapping("/weather-alarm")
     @Scheduled(cron = "0 0 6 * * *")
-    public String alarm() {
+    public String weatherAlarm() {
         return postMessageService.send(weatherService.alarmEveryMorning());
+    }
+
+    @GetMapping("/covid-alarm")
+    @Scheduled(cron = "0 0 11 * * *")
+    public String coronaAlarm() {
+        return postMessageService.send(coronaStateService.alarmEveryday());
     }
 }
