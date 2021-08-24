@@ -1,14 +1,12 @@
 package com.example.slackbot.corona;
 
 import com.example.slackbot.corona.dto.GetCoronaInfStateReq;
-import com.example.slackbot.corona.dto.GetCoronaInfStateRes;
 import com.example.slackbot.corona.dto.response.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
