@@ -21,26 +21,28 @@ public class CoronaStateService {
     public String alarmEveryday() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+        Date currentTime = new Date();
 
         Calendar cal = Calendar.getInstance();
         cal.add(cal.DATE, -1);
         String yesterday = dateFormat.format(cal.getTime());
-
-        String today = dateFormat.format(new Date());
+        String today = dateFormat.format(currentTime);
 
         GetCoronaInfStateReq getCoronaInfStateReq = new GetCoronaInfStateReq();
         getCoronaInfStateReq.setStartCreateDt(yesterday);
-        getCoronaInfStateReq.setStartCreateDt(today);
+        getCoronaInfStateReq.setEndCreateDt(today);
 
         var response = coronaClient.getCoronaInfState(getCoronaInfStateReq);
-        var coronaItems = response.getResponse().getBody().getItems().getItem();
+        var coronaItems = response.getBody().getItems();
+        //var coronaItems = response.getResponse().getBody().getItems();
 
         var todayCnt = coronaItems.stream().filter(c->c.getStateDt().equals(today)).findFirst().get().getDecideCnt();
         var yesterdayCnt = coronaItems.stream().filter(c->c.getStateDt().equals(yesterday)).findFirst().get().getDecideCnt();
 
         StringBuilder stateMsg = new StringBuilder();
         SimpleDateFormat datePrintFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-        stateMsg.append(datePrintFormat.format(today) + " 09:00 am 기준, 어제의 코로나 확진자는 " + (todayCnt - yesterdayCnt) + "명 입니다.\n");
+
+        stateMsg.append(datePrintFormat.format(currentTime) + " 09:00 am 기준, 어제의 코로나 확진자는 " + (todayCnt - yesterdayCnt) + "명 입니다.\n");
 
         return stateMsg.toString();
     }

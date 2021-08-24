@@ -2,6 +2,11 @@ package com.example.slackbot.corona;
 
 import com.example.slackbot.corona.dto.GetCoronaInfStateReq;
 import com.example.slackbot.corona.dto.GetCoronaInfStateRes;
+import com.example.slackbot.corona.dto.response.Response;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -23,7 +28,7 @@ public class CoronaClient {
     @Value("${corona.key.decoding}")
     private String coronaDecodingKey;
 
-    public GetCoronaInfStateRes getCoronaInfState(GetCoronaInfStateReq getCoronaInfStateReq){
+    public Response getCoronaInfState(GetCoronaInfStateReq getCoronaInfStateReq){
         getCoronaInfStateReq.setServiceKey(coronaEncodingKey);
 
         var uri = UriComponentsBuilder.fromUriString(coronaInfStateUrl)
@@ -33,14 +38,28 @@ public class CoronaClient {
 
         var headers = new HttpHeaders();
         var httpEntity = new HttpEntity<>(headers);
-        var responseType = new ParameterizedTypeReference<GetCoronaInfStateRes>(){};
         var responseEntity = new RestTemplate().exchange(
                 uri,
                 HttpMethod.GET,
                 httpEntity,
-                responseType
+                String.class
         );
 
-        return responseEntity.getBody();
+        return parser(responseEntity.getBody());
+    }
+
+    public Response parser(String xml) {
+        ObjectMapper xmlMapper = new XmlMapper();
+        Response response = null;
+
+        try {
+            response = xmlMapper.readValue(xml, Response.class);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 }
