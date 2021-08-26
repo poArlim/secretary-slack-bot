@@ -50,7 +50,7 @@ corona :
 
 ### 개인 노트 
 1. 코로나19 감염현황 API 에서 response.body.items.item 의 resutlNegCnt(음성 결과 수) 오타 주의 (api 오류인듯)
-2. secretary 가 입에 착 감기는 느낌은 아니다. 적절한 이름을 생각해보자.
+2. secretary-bot  입에 착 감기는 느낌은 아니다. 적절한 이름을 생각해보자.
 3. 생각 날 때마다 기능 이것저것 붙여보자.
 4. 관리페이지도 만들면 편할듯?
 
