@@ -17,13 +17,6 @@ public class ApiController {
     private final WeatherService weatherService;
     private final CoronaStateService coronaStateService;
 
-    @PostMapping("/send/{message}")
-    public String send(@PathVariable String message){
-
-        var res = postMessageService.send(message);
-        return res;
-    }
-
     @GetMapping("/weather-alarm")
     @Scheduled(cron = "0 0 6 * * *")
     public String weatherAlarm() {
