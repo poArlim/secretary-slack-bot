@@ -17,6 +17,7 @@ public class SearchShortTermWeatherReq {
     private String dataType = "JSON";
     private String base_date;
     private String base_time;
+    // set default value(의정부시)
     private int nx = 61;
     private int ny = 130;
 
